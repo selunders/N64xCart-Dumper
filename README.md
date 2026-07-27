@@ -2,7 +2,9 @@
 
 N64xCart Dumper is an open hardware / firmware project for dumping Nintendo 64 cartridges as a USB mass storage device. It is based on the excellent DreamDumper64 project and the `DrmDmp64_mass` firmware, with changes for the N64xCart Dumper hardware.
 
-
+<p align="center">
+  <img src="extras/N64xCart-Dumper.png" alt="N64xCart-Dumper assembled board" width="720">
+</p>
 ## Project Status
 
 This repository contains:
