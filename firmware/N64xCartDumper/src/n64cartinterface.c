@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "pico/stdlib.h"
 #include "n64cartinterface.h"
 #include "joybus.h"
@@ -156,9 +157,6 @@ void cartio_init()
     address_pin_mask = 0xFFFF;
     set_ad_output();
 
-    // Eeprom init.
-    InitEepromClock(N64_EEPROM_CLK);
-
     sleep_ms(300);
     gpio_put(N64_COLD_RESET, true);
     sleep_ms(100);
@@ -171,6 +169,36 @@ void cartio_init()
     gpio_init(N64_CIC_DIO);
     gpio_set_dir(N64_CIC_DIO, false);
     gpio_set_pulls(N64_CIC_DIO, true, false);
+
+    // HARDWARE-SHARE NOTE: On this board revision, N64_EEPROM_DAT/N64_EEPROM_CLK
+    // are bodge-jumpered to the same physical cartridge pins as N64_CIC_DIO/N64_CIC_DCLK
+    // (cart pin 21->pin 18, cart pin 19->pin 43). The CIC hello handshake below MUST run
+    // to completion here, on the *plain GPIO* config, before InitEepromClock/InitEeprom
+    // claim these same pins for PIO use further down - otherwise gpio_init() from either
+    // side will clobber the other's pin function.
+
+    // Do cart test and get cart data. Start with the CIC hello protocol.
+    uint8_t CICHello = 0;
+    for (uint32_t x = 0; x < 4; x += 1) {
+        gpio_put(N64_CIC_DCLK, false);
+        sleep_us(10);
+        CICHello |= (uint8_t)(((gpio_get(N64_CIC_DIO) == false) ? 0 : 1) << (3 - x));
+        sleep_us(16);
+        gpio_put(N64_CIC_DCLK, true);
+        sleep_us(20);
+    }
+
+    if (CICHello == 0x5) {
+        gCICType = CIC_TYPE_PAL;
+    } else if (CICHello == 0x1) {
+        gCICType = CIC_TYPE_NTSC;
+    } else {
+        gCICType = CIC_TYPE_INVALID;
+    }
+
+    // Eeprom init. On stock hardware this claims dedicated pins; on this board it
+    // re-purposes the CIC pins above for PIO now that the CIC hello is done with them.
+    InitEepromClock(N64_EEPROM_CLK);
 
     // Read start address, assert that the retured value is something valid.
     set_address(CART_ADDRESS_START);
@@ -272,28 +300,19 @@ void cartio_init()
         }
     }
 
-    // EEPROM init.
+    // EEPROM data pin init + probe. (CIC hello already ran earlier, before this pin
+    // was reconfigured for PIO - see note above.)
     InitEeprom(N64_EEPROM_DAT);
-    uint8_t Buffer[512];
-    ReadEepromData(0, Buffer);
 
-    // Do cart test and get cart data. Start with the CIC hello protocol.
-    uint8_t CICHello = 0;
-    for (uint32_t x = 0; x < 4; x += 1) {
-        gpio_put(N64_CIC_DCLK, false);
-        sleep_us(10);
-        CICHello |= (uint8_t)(((gpio_get(N64_CIC_DIO) == false) ? 0 : 1) << (3 - x));
-        sleep_us(16);
-        gpio_put(N64_CIC_DCLK, true);
-        sleep_us(20);
-    }
-
-    if (CICHello == 0x5) {
-        gCICType = CIC_TYPE_PAL;
-    } else if (CICHello == 0x1) {
-        gCICType = CIC_TYPE_NTSC;
-    } else {
-        gCICType = CIC_TYPE_INVALID;
+    // Cache the entire EEPROM now, once, while cartio_init() still has exclusive,
+    // fully-controlled access to the shared SI_DAT/SI_CLK pins - this runs BEFORE
+    // tud_init() below starts the USB mass storage stack, so there is no host
+    // traffic yet to interleave with. From this point on, live host reads of
+    // ROM.eep / ROMF.eep are served from gEepromCache (see virtualdisk.c) and
+    // never touch this hardware again unless the host writes new data.
+    memset(gEepromCache, 0xFF, sizeof(gEepromCache));
+    for (uint32_t blockOffset = 0; (blockOffset * 8) < gEepromSize && (blockOffset * 8) < EEPROM_CACHE_SIZE; blockOffset += 64) {
+        ReadEepromData(blockOffset, gEepromCache + (blockOffset * 8));
     }
 
     // Read the 0x1000 bytes to determine Rom name, Cart Id, Region and CIC hash.

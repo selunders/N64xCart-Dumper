@@ -514,7 +514,12 @@ int32_t tud_msc_read10_cb(uint8_t lun, uint32_t lba, uint32_t offset, void* buf,
                           CICString = NTSC;
                         }
 
-                        sprintf(buf,
+                        const char* EepWriteWarning = "";
+                        if (gEepromWriteSizeMismatch) {
+                          EepWriteWarning = "    WARNING    - EEPROM write rejected: past detected chip size\n";
+                        }
+
+                        snprintf(buf, SECTOR_SIZE,
                         "\nCart tester report:\n\n"
                         "    EEPROM     - %s\n"
                         "    SRAM       - %s\n"
@@ -525,7 +530,8 @@ int32_t tud_msc_read10_cb(uint8_t lun, uint32_t lba, uint32_t offset, void* buf,
                         "    RomID      - %04X %c%c\n"
                         "    CartType   - %c\n"
                         "    RomRegion  - %c\n"
-                        "    RomVersion - %02X\n",
+                        "    RomVersion - %02X\n"
+                        "%s",
                         EepString,
                         (gSRAMPresent != 0) ? OK : NotPresent,
                         (gFramPresent != 0) ? OK : NotPresent, gFlashType,
@@ -536,14 +542,20 @@ int32_t tud_msc_read10_cb(uint8_t lun, uint32_t lba, uint32_t offset, void* buf,
                         gGameCode[1], ((gGameCode[1] >> 8) & 0xFF), (gGameCode[1] & 0xFF),
                         gGameCode[0] & 0xFF,
                         ((gGameCode[2] >> 8) & 0xFF),
-                        (gGameCode[2] & 0xFF)
+                        (gGameCode[2] & 0xFF),
+                        EepWriteWarning
                         );
                       } else {
                         memset(buf, 0, SECTOR_SIZE);
                       }
                   } else if (cluster == EEPROMFLIP_CLUSTER_START) {
                       uint32_t address = (((uint32_t)cluster - (EEPROMFLIP_CLUSTER_START)) * CLUSTER_SIZE) + (cluster_offset * SECTOR_SIZE);
-                      ReadEepromData(address / 8, buf);
+                      // Served from the boot-time RAM cache - see cartio_init().
+                      if (address <= (EEPROM_CACHE_SIZE - 512)) {
+                          memcpy(buf, gEepromCache + address, 512);
+                      } else {
+                          memset(buf, 0xFF, 512);
+                      }
                   } else if (cluster >= FLASHRAMFLIP_CLUSTER_START) {
                       // Read SRAM/FRAM -- check if the cart responds to Flashram info request first, if not treat as SRAM.
                       // Also support Dezaemon's banked SRAM.
@@ -589,7 +601,13 @@ int32_t tud_msc_read10_cb(uint8_t lun, uint32_t lba, uint32_t offset, void* buf,
 
                   } else if (cluster == EEPROM_CLUSTER_START) {
                       uint32_t address = (((uint32_t)cluster - (FLASHRAM_CLUSTER_START)) * CLUSTER_SIZE) + (cluster_offset * SECTOR_SIZE);
-                      ReadEepromData(address / 8, buf);
+                      // Served from the boot-time RAM cache - see cartio_init().
+                      // Never touches the shared SI_DAT/SI_CLK hardware live.
+                      if (address <= (EEPROM_CACHE_SIZE - 512)) {
+                          memcpy(buf, gEepromCache + address, 512);
+                      } else {
+                          memset(buf, 0xFF, 512);
+                      }
                   }
                 }
             }
@@ -649,7 +667,26 @@ int32_t tud_msc_write10_cb(uint8_t lun, uint32_t lba, uint32_t offset,  uint8_t*
                         return 512; // Not writable.
                   } else if (cluster == EEPROMFLIP_CLUSTER_START) {
                       uint32_t address = (((uint32_t)cluster - (EEPROMFLIP_CLUSTER_START)) * CLUSTER_SIZE) + (cluster_offset * SECTOR_SIZE);
-                      WriteEepromData(address / 8, buffer);
+                      // Deferred write: stage into the RAM cache only. The
+                      // physical EEPROM is updated later, in one batch, by
+                      // EepromIdleFlushTask() once writes have gone idle for
+                      // EEPROM_FLUSH_IDLE_MS - see main.c / joybus.c. This
+                      // keeps writes off the shared SI_DAT/SI_CLK hardware
+                      // during live host I/O.
+                      //
+                      // Validated against the REAL detected chip size
+                      // (gEepromSize), not just the cache buffer size - a
+                      // write past the actual chip capacity (e.g. a 16Kbit
+                      // save file on a 4Kbit cart) is rejected outright
+                      // rather than silently accepted and then only
+                      // partially flushed to hardware.
+                      if (address < gEepromSize && address <= (EEPROM_CACHE_SIZE - 512)) {
+                          memcpy(gEepromCache + address, buffer, 512);
+                          gEepromDirty = true;
+                          gEepromLastWriteMs = board_millis();
+                      } else if (address >= gEepromSize && address <= (EEPROM_CACHE_SIZE - 512)) {
+                          gEepromWriteSizeMismatch = true;
+                      }
                   } else if ((cluster >= FLASHRAMFLIP_CLUSTER_START) && (cluster < FLASHRAMFLIP_CLUSTER_START + 4)) {
                       // Read SRAM/FRAM -- check if the cart responds to Flashram info request first, if not treat as SRAM.
                       // Also support Dezaemon's banked SRAM.
@@ -679,7 +716,13 @@ int32_t tud_msc_write10_cb(uint8_t lun, uint32_t lba, uint32_t offset,  uint8_t*
 
                   } else if (cluster == EEPROM_CLUSTER_START) {
                       uint32_t address = (((uint32_t)cluster - (FLASHRAM_CLUSTER_START)) * CLUSTER_SIZE) + (cluster_offset * SECTOR_SIZE);
-                      WriteEepromData(address / 8, buffer);
+                      if (address < gEepromSize && address <= (EEPROM_CACHE_SIZE - 512)) {
+                          memcpy(gEepromCache + address, buffer, 512);
+                          gEepromDirty = true;
+                          gEepromLastWriteMs = board_millis();
+                      } else if (address >= gEepromSize && address <= (EEPROM_CACHE_SIZE - 512)) {
+                          gEepromWriteSizeMismatch = true;
+                      }
                   }
                 }
             }

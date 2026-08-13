@@ -48,6 +48,7 @@ int main(void)
     led_blinking_task();
 
     cdc_task();
+    EepromIdleFlushTask();
   }
 }
 

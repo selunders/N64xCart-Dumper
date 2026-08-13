@@ -5,6 +5,18 @@
 ; Useful since the end bit makes it so the output size is always = 1 [8]
 ; Clock is / 5 i.e 25MHz
 ;  This will crash if fed an output of len == -1 [Z/8Z]
+;
+; DATA LINE NOTE: outmode below emulates a true open-drain output - it only
+; ever actively drives the pin LOW; every "high" moment is a release to
+; input/high-Z instead, relying on the RP2040's internal pull-up (see
+; gpio_pull_up(dataPin) in InitEeprom()) to bring the line back up. This
+; matches how real serial EEPROM data lines are built (NMOS open-drain, per
+; manufacturer datasheets for this chip family) and removes the possibility
+; of this pin ever actively fighting another device that's pulling the line
+; low at the same instant - relevant on this board since this pin is
+; bodge-jumpered onto a line shared with the cartridge's CIC chip. The clock
+; line (clockgen, below) is left as push-pull: it's always driven by us
+; alone in this protocol, so there's nothing to contend with there.
 .program joybus ;
 PUBLIC inmode: ; Code must force a jump here once it's done using the out mode
     set pindirs, 0 ;
@@ -16,17 +28,22 @@ inagain: ;
     jmp inagain ; 
 ;
 PUBLIC outmode: ; External code must force a jump here in reaction to the RX FIFO contents
-    set pins, 1 ;
-    set pindirs, 1 ;
+    set pindirs, 0 ; open-drain idle: release the pin, pull-up brings it high
 outagain: ;
     pull ifempty block ; On pull 1 et ensuite on l'utilise pour X ET Y ?
     out X, 1 ; X = what should we output
     out Y, 1 ; Y = should we output something
     jmp !Y inmode ; if Y 0, empty the queue
-    set pins, 0 [ 24 ] ;
-    mov pins, X [ 24 ] ;
-    mov pins, X [ 24 ] ;
-    set pins, 1 [ 19 ] ;
+    set pindirs, 1 ; start-of-bit: assert output enable
+    set pins, 0 [ 24 ] ; drive LOW for 25 cycles
+    jmp !X keepdriving ; branch on bit value (RP2040 PIO has no "mov pindirs, x")
+    set pindirs, 0 [ 23 ] ; bit=1: release now (pulled high), hold
+    jmp holddone [ 23 ] ; ...continue hold, same total cost as the bit=0 path below
+keepdriving: ;
+    nop [ 23 ] ; bit=0: keep driving low, hold
+    jmp holddone [ 23 ] ; ...continue hold, same total cost as the bit=1 path above
+holddone: ;
+    set pindirs, 0 [ 19 ] ; end-of-bit: release (pulled high) for 20 cycles, either way
     jmp outagain ;
 ;
 PUBLIC clockgen:

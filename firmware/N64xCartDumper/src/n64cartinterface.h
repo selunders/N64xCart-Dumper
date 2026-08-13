@@ -12,13 +12,22 @@
 
 #include "joybus.h"
 
-#define N64_EEPROM_DAT (24)
-#define N64_EEPROM_CLK (25)
 #define N64_WRITE      (18)
 #define N64_READ       (19)
 #define N64_CIC_DCLK   (20)
 #define N64_CIC_DIO    (21)
 #define N64_COLD_RESET (22)
+
+// NOTE: On stock DreamDumper64-derived hardware these are dedicated pins.
+// On this board revision, cart pins 19 (SI_CLK) and 21 (SI_DAT) are NOT routed
+// to the RP2040 at all (confirmed via PCB netlist - isolated, zero-trace nets).
+// As a workaround, cart pin 21 is bodge-jumpered to cart pin 18 (CIC_DIO) and
+// cart pin 19 is bodge-jumpered to cart pin 43 (CIC_CLK), both of which ARE
+// already routed to the RP2040. The two pins are safe to time-share because
+// the CIC hello handshake (using these pins as plain GPIO) always completes
+// before EEPROM access (which reconfigures them for PIO) - see cartio_init().
+#define N64_EEPROM_DAT (N64_CIC_DIO)
+#define N64_EEPROM_CLK (N64_CIC_DCLK)
 #define N64_ALEL_INIT  (17)
 #define N64_ALEH_INIT  (28)
 #define N64_ALEL_PI    (16)

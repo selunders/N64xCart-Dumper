@@ -20,11 +20,34 @@
 #include "pico/platform.h"
 #include "hardware/gpio.h"
 #include "hardware/pio.h"
+#include "bsp/board.h"
 #include "generated/joybus.pio.h"
 #include "joybus.h"
 
 uint32_t ReadCount = 0;
 uint32_t gEepromSize = 0;
+uint8_t gEepromCache[EEPROM_CACHE_SIZE];
+bool gEepromDirty = false;
+bool gEepromWriteSizeMismatch = false;
+uint32_t gEepromLastWriteMs = 0;
+
+void FlushEepromCache(void)
+{
+    if (!gEepromDirty) {
+        return;
+    }
+    for (uint32_t blockOffset = 0; (blockOffset * 8) < gEepromSize && (blockOffset * 8) < EEPROM_CACHE_SIZE; blockOffset += 64) {
+        WriteEepromData(blockOffset, gEepromCache + (blockOffset * 8));
+    }
+    gEepromDirty = false;
+}
+
+void EepromIdleFlushTask(void)
+{
+    if (gEepromDirty && (board_millis() - gEepromLastWriteMs) >= EEPROM_FLUSH_IDLE_MS) {
+        FlushEepromCache();
+    }
+}
 
 void __time_critical_func(convertToPio)(const uint8_t* command, const int len, uint32_t* result, int* resultLen) {
     if (len == 0) {
