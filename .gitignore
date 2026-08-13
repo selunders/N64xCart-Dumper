@@ -1,0 +1,10 @@
+# CMake build output
+firmware/*/build/
+
+# Firmware build artifacts, in case they're ever produced outside build/
+*.elf
+*.uf2
+*.bin
+*.hex
+*.dis
+*.map
