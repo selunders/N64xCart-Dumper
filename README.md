@@ -20,6 +20,7 @@ The device appears to the computer as a USB mass storage device. The virtual FAT
 
 This project exists because of prior open source work. Please visit and support the original authors:
 
+- N64xCart-Dumper by Auroxin: https://github.com/Auroxin/N64xCart-Dumper
 - DreamDumper64 hardware project by khill25: https://github.com/khill25/Dreamdumper
 - `DrmDmp64_mass` firmware by nopjne: https://github.com/nopjne/drmdmp64_mass
 - TinyUSB USB stack: https://github.com/hathach/tinyusb
@@ -39,9 +40,9 @@ Current hardware files:
 - PCB layout: `hardware/PCB/N64xCartDumper-v1.1.kicad_pcb`
 - Production archive: `hardware/production/N64xCart-Dumper-v1.1-20260612.zip`
 
-## VERSION 1.1 Boards — EEPROM Fix
+## VERSION 1.1 Boards — EEPROM Workaround
 
-On VERSION 1.1 boards, the dedicated EEPROM pins are not actually routed to the RP2040 (dead-end nets). To get working EEPROM saves on these boards, two jumper wires need to be soldered onto the cartridge slot connector, bridging the EEPROM lines onto pins that are already routed (shared with the CIC lines), and the firmware needs the accompanying EEPROM/CIC pin-sharing changes to go with it.
+On VERSION 1.1 boards, the dedicated EEPROM pins are not actually routed to the RP2040 (dead-end nets) ((as far as Claude Code can tell at least)). To get working EEPROM saves on these boards, two jumper wires need to be soldered onto the cartridge slot connector, bridging the EEPROM lines onto pins that are already routed (shared with the CIC lines), and the firmware needs the accompanying EEPROM/CIC pin-sharing changes to go with it.
 
 <p align="center">
   <img src="n64_jumper_diagram.svg" alt="N64xCart Dumper VERSION 1.1 jumper wire diagram" width="900">
@@ -54,8 +55,8 @@ Jumper wires needed:
 
 ### Soldering instructions
 
-1. Confirm your board is actually a VERSION 1.1 board before doing anything.
-2. With the board powered off, locate cartridge slot pins 18, 19, 21, and 43. Use the bottom (solder-side) view in the diagram above — pin numbering mirrors left/right once you flip the board over.
+1. Confirm your board is actually a VERSION 1.1 board before doing anything. (Should have `REV 1.1` printed on the bottom)
+2. With the board powered off, locate cartridge slot pins 18, 19, 21, and 43. Use the bottom (solder-side) view in the diagram above — pin numbering mirrors left/right once you flip the board over. I took off the acrylic board cover when doing this step.
 3. Solder jumper wire 2 (pin 19 to pin 43, top-to-bottom across the connector).
 4. Solder jumper wire 1 (pin 21 to pin 18, side-to-side along the bottom row).
 5. Check for solder bridges to adjacent pins before powering the board back on.
@@ -68,13 +69,13 @@ Jumper wires needed:
   <img src="eeprom_output.png" alt="CartTest.txt showing EEPROM 4K OK after the jumper mod" width="400">
 </p>
 
-EEPROM reads back `4K OK!` after the jumpers are installed and this firmware is flashed.
+EEPROM reads back `##K OK!` after the jumpers are installed and this firmware is flashed.
 
 One caveat: the `CIC` line in the report seems to always show `Failed` after this workaround. As far as I can tell that doesn't actually harm anything — the checksums of the ROMs I've backed up match what they should be, and the saves I've pulled off have worked too.
 
 ### Disclaimer
 
-This modification (diagram, wiring, and the accompanying firmware changes) was put together with AI assistance and may not reflect best soldering or hardware practice. I take no responsibility for damaged cartridge readers, damaged cartridges, corrupted or lost save data, or anything else that results from following these instructions. Solder at your own risk.
+This modification (diagram, wiring, and the accompanying firmware changes) was put together with AI assistance and may not reflect best practices. I take no responsibility for damaged cartridge readers, damaged cartridges, corrupted or lost save data, or anything else that results from following these instructions. Solder at your own risk.
 
 That said — it does work for me, on my own VERSION 1.1 board.
 
