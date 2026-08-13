@@ -1,10 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1576" height="1560" viewBox="0 0 1576 1560" font-family="Helvetica, Arial, sans-serif">
 <rect x="0" y="0" width="1576" height="1560" fill="#0d1117"/>
-<text x="788.0" y="38" fill="#e6edf3" font-size="23" font-weight="700" text-anchor="middle">N64xCart Dumper — Cartridge Slot Connector (TOP-DOWN VIEW)</text>
+<text x="788.0" y="38" fill="#e6edf3" font-size="23" font-weight="700" text-anchor="middle">N64xCart Dumper VERSION 1.1 — Cartridge Slot Connector (TOP-DOWN VIEW)</text>
 <text x="788.0" y="64" fill="#8b949e" font-size="13.5" text-anchor="middle">You are looking straight DOWN onto the connector from directly above — the device lying flat, slot opening facing up toward you.</text>
 <text x="788.0" y="84" fill="#8b949e" font-size="13.5" text-anchor="middle">Pin 1 = bottom row, far left. Pin 26 = top row, far left. Column N: bottom pin = N, top pin = N+25.</text>
 <rect x="58" y="93" width="182" height="20" rx="5" fill="#1f6feb" stroke="#58a6ff" stroke-width="1.5"/>
 <text x="149" y="107" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">⬇ TOP-DOWN VIEW ⬇</text>
+<rect x="1064" y="93" width="114" height="20" rx="5" fill="#9e6a03" stroke="#e3b341" stroke-width="1.5"/>
+<text x="1121" y="107" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">VERSION 1.1 ONLY</text>
 <rect x="58" y="118" width="1120" height="254" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
 <text x="1192" y="154" fill="#8b949e" font-size="13" text-anchor="start">Top row</text>
 <text x="1192" y="344" fill="#8b949e" font-size="13" text-anchor="start">Bottom row</text>
@@ -130,11 +132,13 @@
 <text x="120" y="715" fill="#e6edf3" font-size="14">Jumper wire 1:  pin 21 (SI_DAT)  to  pin 18 (CIC_DIO)</text>
 <line x1="58" y1="742" x2="108" y2="742" stroke="#f85149" stroke-width="4" stroke-dasharray="1,8" stroke-linecap="round"/>
 <text x="120" y="747" fill="#e6edf3" font-size="14">Jumper wire 2:  pin 19 (SI_CLK)  to  pin 43 (CIC_CLK)</text>
-<text x="788.0" y="770" fill="#e6edf3" font-size="23" font-weight="700" text-anchor="middle">N64xCart Dumper — Cartridge Slot Connector (BOTTOM VIEW)</text>
+<text x="788.0" y="770" fill="#e6edf3" font-size="23" font-weight="700" text-anchor="middle">N64xCart Dumper VERSION 1.1 — Cartridge Slot Connector (BOTTOM VIEW)</text>
 <text x="788.0" y="796" fill="#8b949e" font-size="13.5" text-anchor="middle">Board flipped LEFT ⟷ RIGHT from the view above (like turning a page) to look at the solder side from below.</text>
 <text x="788.0" y="816" fill="#8b949e" font-size="13.5" text-anchor="middle">Pin 1 = bottom row, far RIGHT now. Pin 26 = top row, far RIGHT now. Row positions (top/bottom) are unchanged.</text>
 <rect x="58" y="825" width="182" height="20" rx="5" fill="#a371f7" stroke="#d2a8ff" stroke-width="1.5"/>
 <text x="149" y="839" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">⬆ BOTTOM VIEW ⬆</text>
+<rect x="1064" y="825" width="114" height="20" rx="5" fill="#9e6a03" stroke="#e3b341" stroke-width="1.5"/>
+<text x="1121" y="839" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">VERSION 1.1 ONLY</text>
 <rect x="58" y="850" width="1120" height="254" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
 <text x="1192" y="886" fill="#8b949e" font-size="13" text-anchor="start">Top row</text>
 <text x="1192" y="1076" fill="#8b949e" font-size="13" text-anchor="start">Bottom row</text>
