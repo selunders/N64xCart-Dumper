@@ -1,0 +1,265 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1576" height="1560" viewBox="0 0 1576 1560" font-family="Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1576" height="1560" fill="#0d1117"/>
+<text x="788.0" y="38" fill="#e6edf3" font-size="23" font-weight="700" text-anchor="middle">N64xCart Dumper — Cartridge Slot Connector (TOP-DOWN VIEW)</text>
+<text x="788.0" y="64" fill="#8b949e" font-size="13.5" text-anchor="middle">You are looking straight DOWN onto the connector from directly above — the device lying flat, slot opening facing up toward you.</text>
+<text x="788.0" y="84" fill="#8b949e" font-size="13.5" text-anchor="middle">Pin 1 = bottom row, far left. Pin 26 = top row, far left. Column N: bottom pin = N, top pin = N+25.</text>
+<rect x="58" y="93" width="182" height="20" rx="5" fill="#1f6feb" stroke="#58a6ff" stroke-width="1.5"/>
+<text x="149" y="107" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">⬇ TOP-DOWN VIEW ⬇</text>
+<rect x="58" y="118" width="1120" height="254" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<text x="1192" y="154" fill="#8b949e" font-size="13" text-anchor="start">Top row</text>
+<text x="1192" y="344" fill="#8b949e" font-size="13" text-anchor="start">Bottom row</text>
+<path d="M 970 340 Q 904.0 450 838 340" fill="none" stroke="#58a6ff" stroke-width="4" stroke-dasharray="1,8" stroke-linecap="round"/>
+<path d="M 882 340 C 972 340, 972 150, 838 150" fill="none" stroke="#f85149" stroke-width="4" stroke-dasharray="1,8" stroke-linecap="round"/>
+<circle cx="90" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="134" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="178" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="222" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="266" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="310" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="354" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="398" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="442" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="486" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="530" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="574" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="618" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="662" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="706" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="750" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="794" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="838" cy="340" r="12" fill="#58a6ff" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="882" cy="340" r="12" fill="#f85149" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="926" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="970" cy="340" r="12" fill="#58a6ff" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="1014" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1058" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1102" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1146" cy="340" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="90" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="134" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="178" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="222" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="266" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="310" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="354" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="398" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="442" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="486" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="530" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="574" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="618" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="662" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="706" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="750" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="794" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="838" cy="150" r="12" fill="#f85149" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="882" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="926" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="970" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1014" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1058" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1102" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1146" cy="150" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<text x="90" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">1</text>
+<text x="134" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">2</text>
+<text x="178" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">3</text>
+<text x="222" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">4</text>
+<text x="266" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">5</text>
+<text x="310" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">6</text>
+<text x="354" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">7</text>
+<text x="398" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">8</text>
+<text x="442" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">9</text>
+<text x="486" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">10</text>
+<text x="530" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">11</text>
+<text x="574" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">12</text>
+<text x="618" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">13</text>
+<text x="662" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">14</text>
+<text x="706" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">15</text>
+<text x="750" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">16</text>
+<text x="794" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">17</text>
+<text x="838" y="364" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">18</text>
+<text x="882" y="364" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">19</text>
+<text x="926" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">20</text>
+<text x="970" y="364" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">21</text>
+<text x="1014" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">22</text>
+<text x="1058" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">23</text>
+<text x="1102" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">24</text>
+<text x="1146" y="364" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">25</text>
+<text x="90" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">26</text>
+<text x="134" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">27</text>
+<text x="178" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">28</text>
+<text x="222" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">29</text>
+<text x="266" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">30</text>
+<text x="310" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">31</text>
+<text x="354" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">32</text>
+<text x="398" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">33</text>
+<text x="442" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">34</text>
+<text x="486" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">35</text>
+<text x="530" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">36</text>
+<text x="574" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">37</text>
+<text x="618" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">38</text>
+<text x="662" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">39</text>
+<text x="706" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">40</text>
+<text x="750" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">41</text>
+<text x="794" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">42</text>
+<text x="838" y="132" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">43</text>
+<text x="882" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">44</text>
+<text x="926" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">45</text>
+<text x="970" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">46</text>
+<text x="1014" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">47</text>
+<text x="1058" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">48</text>
+<text x="1102" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">49</text>
+<text x="1146" y="132" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">50</text>
+<path d="M 970 340 L 970 431 L 1182 431" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-opacity="0.5"/>
+<circle cx="1182" cy="431" r="3" fill="#58a6ff"/>
+<text x="1192" y="427" fill="#58a6ff" font-size="14" font-weight="700" text-anchor="start">Pin 21 — SI_DAT</text>
+<text x="1192" y="445" fill="#8b949e" font-size="11.5" text-anchor="start">EEPROM data (currently a dead-end net)</text>
+<path d="M 838 340 L 838 477 L 1182 477" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-opacity="0.5"/>
+<circle cx="1182" cy="477" r="3" fill="#58a6ff"/>
+<text x="1192" y="473" fill="#58a6ff" font-size="14" font-weight="700" text-anchor="start">Pin 18 — CIC_DIO</text>
+<text x="1192" y="491" fill="#8b949e" font-size="11.5" text-anchor="start">already routed to RP2040 GPIO21</text>
+<path d="M 882 340 L 882 523 L 1182 523" fill="none" stroke="#f85149" stroke-width="1.5" stroke-opacity="0.5"/>
+<circle cx="1182" cy="523" r="3" fill="#f85149"/>
+<text x="1192" y="519" fill="#f85149" font-size="14" font-weight="700" text-anchor="start">Pin 19 — SI_CLK</text>
+<text x="1192" y="537" fill="#8b949e" font-size="11.5" text-anchor="start">EEPROM clock (currently a dead-end net)</text>
+<path d="M 838 150 L 838 569 L 1182 569" fill="none" stroke="#f85149" stroke-width="1.5" stroke-opacity="0.5"/>
+<circle cx="1182" cy="569" r="3" fill="#f85149"/>
+<text x="1192" y="565" fill="#f85149" font-size="14" font-weight="700" text-anchor="start">Pin 43 — CIC_CLK</text>
+<text x="1192" y="583" fill="#8b949e" font-size="11.5" text-anchor="start">already routed to RP2040 GPIO20</text>
+<line x1="58" y1="710" x2="108" y2="710" stroke="#58a6ff" stroke-width="4" stroke-dasharray="1,8" stroke-linecap="round"/>
+<text x="120" y="715" fill="#e6edf3" font-size="14">Jumper wire 1:  pin 21 (SI_DAT)  to  pin 18 (CIC_DIO)</text>
+<line x1="58" y1="742" x2="108" y2="742" stroke="#f85149" stroke-width="4" stroke-dasharray="1,8" stroke-linecap="round"/>
+<text x="120" y="747" fill="#e6edf3" font-size="14">Jumper wire 2:  pin 19 (SI_CLK)  to  pin 43 (CIC_CLK)</text>
+<text x="788.0" y="770" fill="#e6edf3" font-size="23" font-weight="700" text-anchor="middle">N64xCart Dumper — Cartridge Slot Connector (BOTTOM VIEW)</text>
+<text x="788.0" y="796" fill="#8b949e" font-size="13.5" text-anchor="middle">Board flipped LEFT ⟷ RIGHT from the view above (like turning a page) to look at the solder side from below.</text>
+<text x="788.0" y="816" fill="#8b949e" font-size="13.5" text-anchor="middle">Pin 1 = bottom row, far RIGHT now. Pin 26 = top row, far RIGHT now. Row positions (top/bottom) are unchanged.</text>
+<rect x="58" y="825" width="182" height="20" rx="5" fill="#a371f7" stroke="#d2a8ff" stroke-width="1.5"/>
+<text x="149" y="839" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">⬆ BOTTOM VIEW ⬆</text>
+<rect x="58" y="850" width="1120" height="254" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<text x="1192" y="886" fill="#8b949e" font-size="13" text-anchor="start">Top row</text>
+<text x="1192" y="1076" fill="#8b949e" font-size="13" text-anchor="start">Bottom row</text>
+<text x="150" y="977" fill="#d2a8ff" font-size="13" font-weight="700" text-anchor="middle">◄ LEFT (pin 25 / 50 side)</text>
+<text x="1086" y="977" fill="#d2a8ff" font-size="13" font-weight="700" text-anchor="middle">(pin 1 / 26 side) RIGHT ►</text>
+<path d="M 266 1072 Q 332.0 1182 398 1072" fill="none" stroke="#58a6ff" stroke-width="4" stroke-linecap="round"/>
+<path d="M 354 1072 C 264 1072, 264 882, 398 882" fill="none" stroke="#f85149" stroke-width="4" stroke-linecap="round"/>
+<circle cx="1146" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1102" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1058" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1014" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="970" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="926" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="882" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="838" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="794" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="750" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="706" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="662" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="618" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="574" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="530" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="486" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="442" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="398" cy="1072" r="12" fill="#58a6ff" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="354" cy="1072" r="12" fill="#f85149" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="310" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="266" cy="1072" r="12" fill="#58a6ff" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="222" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="178" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="134" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="90" cy="1072" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1146" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1102" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1058" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="1014" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="970" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="926" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="882" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="838" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="794" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="750" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="706" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="662" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="618" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="574" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="530" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="486" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="442" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="398" cy="882" r="12" fill="#f85149" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="354" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="310" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="266" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="222" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="178" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="134" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<circle cx="90" cy="882" r="9" fill="#484f58" stroke="#6e7681" stroke-width="1"/>
+<text x="1146" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">1</text>
+<text x="1102" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">2</text>
+<text x="1058" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">3</text>
+<text x="1014" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">4</text>
+<text x="970" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">5</text>
+<text x="926" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">6</text>
+<text x="882" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">7</text>
+<text x="838" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">8</text>
+<text x="794" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">9</text>
+<text x="750" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">10</text>
+<text x="706" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">11</text>
+<text x="662" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">12</text>
+<text x="618" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">13</text>
+<text x="574" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">14</text>
+<text x="530" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">15</text>
+<text x="486" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">16</text>
+<text x="442" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">17</text>
+<text x="398" y="1096" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">18</text>
+<text x="354" y="1096" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">19</text>
+<text x="310" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">20</text>
+<text x="266" y="1096" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">21</text>
+<text x="222" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">22</text>
+<text x="178" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">23</text>
+<text x="134" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">24</text>
+<text x="90" y="1096" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">25</text>
+<text x="1146" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">26</text>
+<text x="1102" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">27</text>
+<text x="1058" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">28</text>
+<text x="1014" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">29</text>
+<text x="970" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">30</text>
+<text x="926" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">31</text>
+<text x="882" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">32</text>
+<text x="838" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">33</text>
+<text x="794" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">34</text>
+<text x="750" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">35</text>
+<text x="706" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">36</text>
+<text x="662" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">37</text>
+<text x="618" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">38</text>
+<text x="574" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">39</text>
+<text x="530" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">40</text>
+<text x="486" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">41</text>
+<text x="442" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">42</text>
+<text x="398" y="864" fill="#e6edf3" font-size="12" font-weight="700" text-anchor="middle">43</text>
+<text x="354" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">44</text>
+<text x="310" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">45</text>
+<text x="266" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">46</text>
+<text x="222" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">47</text>
+<text x="178" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">48</text>
+<text x="134" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">49</text>
+<text x="90" y="864" fill="#6e7681" font-size="9" font-weight="400" text-anchor="middle">50</text>
+<path d="M 266 1072 L 266 1163 L 1182 1163" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-opacity="0.5"/>
+<circle cx="1182" cy="1163" r="3" fill="#58a6ff"/>
+<text x="1192" y="1159" fill="#58a6ff" font-size="14" font-weight="700" text-anchor="start">Pin 21 — SI_DAT</text>
+<text x="1192" y="1177" fill="#8b949e" font-size="11.5" text-anchor="start">EEPROM data (currently a dead-end net)</text>
+<path d="M 398 1072 L 398 1209 L 1182 1209" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-opacity="0.5"/>
+<circle cx="1182" cy="1209" r="3" fill="#58a6ff"/>
+<text x="1192" y="1205" fill="#58a6ff" font-size="14" font-weight="700" text-anchor="start">Pin 18 — CIC_DIO</text>
+<text x="1192" y="1223" fill="#8b949e" font-size="11.5" text-anchor="start">already routed to RP2040 GPIO21</text>
+<path d="M 354 1072 L 354 1255 L 1182 1255" fill="none" stroke="#f85149" stroke-width="1.5" stroke-opacity="0.5"/>
+<circle cx="1182" cy="1255" r="3" fill="#f85149"/>
+<text x="1192" y="1251" fill="#f85149" font-size="14" font-weight="700" text-anchor="start">Pin 19 — SI_CLK</text>
+<text x="1192" y="1269" fill="#8b949e" font-size="11.5" text-anchor="start">EEPROM clock (currently a dead-end net)</text>
+<path d="M 398 882 L 398 1301 L 1182 1301" fill="none" stroke="#f85149" stroke-width="1.5" stroke-opacity="0.5"/>
+<circle cx="1182" cy="1301" r="3" fill="#f85149"/>
+<text x="1192" y="1297" fill="#f85149" font-size="14" font-weight="700" text-anchor="start">Pin 43 — CIC_CLK</text>
+<text x="1192" y="1315" fill="#8b949e" font-size="11.5" text-anchor="start">already routed to RP2040 GPIO20</text>
+<line x1="58" y1="1442" x2="108" y2="1442" stroke="#58a6ff" stroke-width="4" stroke-linecap="round"/>
+<text x="120" y="1447" fill="#e6edf3" font-size="14">Jumper wire 1 (soldered):  pin 21 (SI_DAT)  to  pin 18 (CIC_DIO)</text>
+<line x1="58" y1="1474" x2="108" y2="1474" stroke="#f85149" stroke-width="4" stroke-linecap="round"/>
+<text x="120" y="1479" fill="#e6edf3" font-size="14">Jumper wire 2 (soldered):  pin 19 (SI_CLK)  to  pin 43 (CIC_CLK)</text>
+</svg>
