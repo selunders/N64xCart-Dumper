@@ -600,7 +600,7 @@ int32_t tud_msc_read10_cb(uint8_t lun, uint32_t lba, uint32_t offset, void* buf,
                       }
 
                   } else if (cluster == EEPROM_CLUSTER_START) {
-                      uint32_t address = (((uint32_t)cluster - (FLASHRAM_CLUSTER_START)) * CLUSTER_SIZE) + (cluster_offset * SECTOR_SIZE);
+                      uint32_t address = (((uint32_t)cluster - (EEPROM_CLUSTER_START)) * CLUSTER_SIZE) + (cluster_offset * SECTOR_SIZE);
                       // Served from the boot-time RAM cache - see cartio_init().
                       // Never touches the shared SI_DAT/SI_CLK hardware live.
                       if (address <= (EEPROM_CACHE_SIZE - 512)) {
@@ -715,7 +715,7 @@ int32_t tud_msc_write10_cb(uint8_t lun, uint32_t lba, uint32_t offset,  uint8_t*
                       }
 
                   } else if (cluster == EEPROM_CLUSTER_START) {
-                      uint32_t address = (((uint32_t)cluster - (FLASHRAM_CLUSTER_START)) * CLUSTER_SIZE) + (cluster_offset * SECTOR_SIZE);
+                      uint32_t address = (((uint32_t)cluster - (EEPROM_CLUSTER_START)) * CLUSTER_SIZE) + (cluster_offset * SECTOR_SIZE);
                       if (address < gEepromSize && address <= (EEPROM_CACHE_SIZE - 512)) {
                           memcpy(gEepromCache + address, buffer, 512);
                           gEepromDirty = true;
