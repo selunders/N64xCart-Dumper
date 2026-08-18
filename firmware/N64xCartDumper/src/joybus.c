@@ -30,6 +30,9 @@ uint8_t gEepromCache[EEPROM_CACHE_SIZE];
 bool gEepromDirty = false;
 bool gEepromWriteSizeMismatch = false;
 uint32_t gEepromLastWriteMs = 0;
+bool gEepromCommError = false;
+volatile uint32_t gLastCartReadMs = 0xFFFFFFFF;
+volatile uint32_t gLastCartWriteMs = 0xFFFFFFFF;
 
 void FlushEepromCache(void)
 {
@@ -222,12 +225,14 @@ void __time_critical_func(ReadEepromData)(uint32_t offset, uint8_t *buffer)
 
             firstInput = GetInputWithTimeout();
             if (retries > 10) {
+                gEepromCommError = true;
                 gEepromSize = 0;
                 return;
             }
             retries += 1;
 
         } while (firstInput == 0xFFFFFFFF);
+        gLastCartReadMs = board_millis();
         // Read the incoming data from the cart.
         buffer[(uint)ReadIndex * 8] = (uint8_t)firstInput;
         for (int i = 1; i < 8; i += 1) {
@@ -251,8 +256,11 @@ void __time_critical_func(WriteEepromData)(uint32_t offset, uint8_t *buffer)
 
         bool verified = false;
         for (uint32_t attempt = 0; attempt < 8 && !verified; attempt += 1) {
+            gLastCartWriteMs = board_millis();
+
             uint32_t firstInput;
             if (!SendEepromCommand(writeCommand, 10, &firstInput)) {
+                gEepromCommError = true;
                 gEepromSize = 0;
                 return;
             }
@@ -269,6 +277,7 @@ void __time_critical_func(WriteEepromData)(uint32_t offset, uint8_t *buffer)
 
             // Verify by reading the same block back.
             if (!SendEepromCommand(readCommand, 2, &firstInput)) {
+                gEepromCommError = true;
                 gEepromSize = 0;
                 return;
             }

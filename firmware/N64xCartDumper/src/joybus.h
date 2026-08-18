@@ -53,3 +53,17 @@ extern uint32_t gEepromLastWriteMs;
 void EepromIdleFlushTask(void);
 
 extern uint32_t gEepromSize;
+
+// Set when a previously-detected EEPROM (gEepromSize was already nonzero)
+// stops responding mid-operation. Distinct from "no EEPROM chip present"
+// (normal for most carts, never sets this) - sticky until reboot. Checked
+// by the status LED task in main.c to show a fast error blink.
+extern bool gEepromCommError;
+
+// Timestamp (board_millis()) of the most recent read/write activity - set
+// by host MSC reads/writes in virtualdisk.c (any file, not just EEPROM) and
+// by the EEPROM hardware flush in WriteEepromData, so the LED status task
+// can show live activity instead of just USB mount state. Initialized far
+// in the past so nothing looks "recently active" before the first real event.
+extern volatile uint32_t gLastCartReadMs;
+extern volatile uint32_t gLastCartWriteMs;

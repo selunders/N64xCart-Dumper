@@ -320,7 +320,8 @@ int32_t tud_msc_read10_cb(uint8_t lun, uint32_t lba, uint32_t offset, void* buf,
     (void)lun;
     (void)offset;
     assert(offset == 0);
-    
+    gLastCartReadMs = board_millis();
+
     if (!lba) {
         memset(buf, 0, buf_size);
         uint8_t *ptable = buf + SECTOR_SIZE - 2 - 64;
@@ -641,6 +642,7 @@ int32_t tud_msc_write10_cb(uint8_t lun, uint32_t lba, uint32_t offset,  uint8_t*
   (void)lun;
     (void)offset;
     assert(offset == 0);
+    gLastCartWriteMs = board_millis();
     if (!lba) {
        return 512; // Not writable.
     }

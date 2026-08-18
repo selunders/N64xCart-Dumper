@@ -134,15 +134,53 @@ void tud_cdc_rx_cb(uint8_t itf)
 }
 
 //--------------------------------------------------------------------+
-// BLINKING TASK
+// STATUS LED TASK
 //--------------------------------------------------------------------+
+// One onboard LED, so activity is shown as distinct patterns rather than
+// colors, checked in priority order:
+//   - fast blink   : error (EEPROM stopped responding mid-operation, or a
+//                    write was rejected for exceeding the cart's detected
+//                    EEPROM size) - sticky, stays until reboot.
+//   - medium blink : write in progress - covers both the host MSC write
+//                    and the EEPROM hardware flush that follows it.
+//   - solid on     : read in progress.
+//   - slow blink   : idle - falls back to the existing USB mount-state
+//                    heartbeat below.
+#define LED_ACTIVITY_HOLD_MS 150
+#define LED_ERROR_BLINK_MS   80
+#define LED_WRITE_BLINK_MS   150
+
 void led_blinking_task(void)
 {
   static uint32_t start_ms = 0;
   static bool led_state = false;
+  uint32_t now = board_millis();
+
+  if (gEepromCommError || gEepromWriteSizeMismatch) {
+    if (now - start_ms < LED_ERROR_BLINK_MS) return;
+    start_ms = now;
+    board_led_write(led_state);
+    led_state = 1 - led_state;
+    return;
+  }
+
+  if (now - gLastCartWriteMs < LED_ACTIVITY_HOLD_MS) {
+    if (now - start_ms < LED_WRITE_BLINK_MS) return;
+    start_ms = now;
+    board_led_write(led_state);
+    led_state = 1 - led_state;
+    return;
+  }
+
+  if (now - gLastCartReadMs < LED_ACTIVITY_HOLD_MS) {
+    board_led_write(true);
+    led_state = true;
+    start_ms = now;
+    return;
+  }
 
   // Blink every interval ms
-  if ( board_millis() - start_ms < blink_interval_ms) return; // not enough time
+  if ( now - start_ms < blink_interval_ms) return; // not enough time
   start_ms += blink_interval_ms;
 
   board_led_write(led_state);
