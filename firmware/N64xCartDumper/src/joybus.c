@@ -114,6 +114,38 @@ uint32_t GetInputWithTimeout(void)
 
 pio_sm_config config;
 uint piooffset;
+
+// Sends a joybus command and returns the first response byte via *firstInputOut.
+// Leaves the PIO RX FIFO holding any remaining response bytes for the caller
+// to drain (pio_sm_get_blocking). Returns false if the cart never responded
+// (10 retries of the full command with no reply) - communication is lost.
+static bool __time_critical_func(SendEepromCommand)(const uint8_t* command, int len, uint32_t* firstInputOut)
+{
+    uint32_t result[10];
+    int resultLen;
+    convertToPio(command, len, result, &resultLen);
+
+    uint32_t firstInput;
+    uint32_t retries = 0;
+    do {
+        pio_sm_set_enabled(pio, 0, false);
+        pio_sm_init(pio, 0, piooffset + joybus_offset_outmode, &config);
+        pio_sm_set_enabled(pio, 0, true);
+
+        for (int i = 0; i < resultLen; i++) pio_sm_put_blocking(pio, 0, result[i]);
+
+        firstInput = GetInputWithTimeout();
+        if (retries > 10) {
+            return false;
+        }
+        retries += 1;
+
+    } while (firstInput == 0xFFFFFFFF);
+
+    *firstInputOut = firstInput;
+    return true;
+}
+
 void __time_critical_func(InitEeprom)(uint dataPin)
 {
     gpio_init(dataPin);
@@ -136,23 +168,13 @@ void __time_critical_func(InitEeprom)(uint dataPin)
     pio_sm_init(pio, 0, piooffset, &config);
     pio_sm_set_enabled(pio, 0, true);
 
-    // Send the info command
-    {
-        uint8_t probeResponse[1] = {0x00};
-        uint32_t result[8];
-        int resultLen;
-        convertToPio(probeResponse, 1, result, &resultLen);
+    // Send the info command, retrying on timeout - this board's SI signaling
+    // has proven marginal (see also the CIC hello), so a single unanswered
+    // attempt right after reset shouldn't be taken to mean "no EEPROM".
+    uint8_t probeCommand[1] = {0x00};
+    uint32_t buffer[3] = {0xFFFFFFFF, 0, 0};
+    SendEepromCommand(probeCommand, 1, &buffer[0]);
 
-        pio_sm_set_enabled(pio, 0, false);
-        pio_sm_init(pio, 0, piooffset + joybus_offset_outmode, &config);
-        pio_sm_set_enabled(pio, 0, true);
-
-        for (int i = 0; i < resultLen; i++) pio_sm_put_blocking(pio, 0, result[i]);
-    }
-
-    // Check response
-    uint32_t buffer[3];
-    buffer[0] = GetInputWithTimeout();
     if (buffer[0] == 0) {
         buffer[1] = pio_sm_get_blocking(pio, 0);
         buffer[2] = pio_sm_get_blocking(pio, 0);
@@ -213,37 +235,6 @@ void __time_critical_func(ReadEepromData)(uint32_t offset, uint8_t *buffer)
         }
         sleep_us(200);
     }
-}
-
-// Sends a joybus command and returns the first response byte via *firstInputOut.
-// Leaves the PIO RX FIFO holding any remaining response bytes for the caller
-// to drain (pio_sm_get_blocking). Returns false if the cart never responded
-// (10 retries of the full command with no reply) - communication is lost.
-static bool __time_critical_func(SendEepromCommand)(const uint8_t* command, int len, uint32_t* firstInputOut)
-{
-    uint32_t result[10];
-    int resultLen;
-    convertToPio(command, len, result, &resultLen);
-
-    uint32_t firstInput;
-    uint32_t retries = 0;
-    do {
-        pio_sm_set_enabled(pio, 0, false);
-        pio_sm_init(pio, 0, piooffset + joybus_offset_outmode, &config);
-        pio_sm_set_enabled(pio, 0, true);
-
-        for (int i = 0; i < resultLen; i++) pio_sm_put_blocking(pio, 0, result[i]);
-
-        firstInput = GetInputWithTimeout();
-        if (retries > 10) {
-            return false;
-        }
-        retries += 1;
-
-    } while (firstInput == 0xFFFFFFFF);
-
-    *firstInputOut = firstInput;
-    return true;
 }
 
 void __time_critical_func(WriteEepromData)(uint32_t offset, uint8_t *buffer)
