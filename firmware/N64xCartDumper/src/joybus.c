@@ -14,7 +14,7 @@
 //0x04    Read EEPROM   N64 Cartridge    2	      8
 //0x05    Write EEPROM  N64 Cartridge    10	      1
 
-#include <stdlib.h>
+#include <string.h>
 #include "pico/stdlib.h"
 
 #include "pico/platform.h"
@@ -215,43 +215,82 @@ void __time_critical_func(ReadEepromData)(uint32_t offset, uint8_t *buffer)
     }
 }
 
+// Sends a joybus command and returns the first response byte via *firstInputOut.
+// Leaves the PIO RX FIFO holding any remaining response bytes for the caller
+// to drain (pio_sm_get_blocking). Returns false if the cart never responded
+// (10 retries of the full command with no reply) - communication is lost.
+static bool __time_critical_func(SendEepromCommand)(const uint8_t* command, int len, uint32_t* firstInputOut)
+{
+    uint32_t result[10];
+    int resultLen;
+    convertToPio(command, len, result, &resultLen);
+
+    uint32_t firstInput;
+    uint32_t retries = 0;
+    do {
+        pio_sm_set_enabled(pio, 0, false);
+        pio_sm_init(pio, 0, piooffset + joybus_offset_outmode, &config);
+        pio_sm_set_enabled(pio, 0, true);
+
+        for (int i = 0; i < resultLen; i++) pio_sm_put_blocking(pio, 0, result[i]);
+
+        firstInput = GetInputWithTimeout();
+        if (retries > 10) {
+            return false;
+        }
+        retries += 1;
+
+    } while (firstInput == 0xFFFFFFFF);
+
+    *firstInputOut = firstInput;
+    return true;
+}
+
 void __time_critical_func(WriteEepromData)(uint32_t offset, uint8_t *buffer)
 {
-    // Write the eeprom.
+    // Write the eeprom, verifying (and retrying) each 8-byte block by reading
+    // it back before trusting it - a write ack alone doesn't guarantee the
+    // cart's internal write cycle actually finished before we moved on.
     for (uint32_t WriteIndex = 0; WriteIndex < 64; WriteIndex += 1) {
-        // Construct the write command.
-        uint8_t probeResponse[10] = {0x05, (uint8_t)(WriteIndex + offset)};
+        uint8_t writeCommand[10] = {0x05, (uint8_t)(WriteIndex + offset)};
         for (uint i = 0; i < 8; i += 1) {
-            probeResponse[i + 2] = buffer[i + (WriteIndex * 8)];
+            writeCommand[i + 2] = buffer[i + (WriteIndex * 8)];
         }
+        uint8_t readCommand[2] = {0x04, (uint8_t)(WriteIndex + offset)};
 
-        uint32_t result[10];
-        int resultLen;
-        convertToPio(probeResponse, 10, result, &resultLen);
-
-        uint32_t firstInput;
-        uint32_t retries = 0;
-        do {
-            // Send the read command
-            pio_sm_set_enabled(pio, 0, false);
-            pio_sm_init(pio, 0, piooffset + joybus_offset_outmode, &config);
-            pio_sm_set_enabled(pio, 0, true);
-
-            for (int i = 0; i < resultLen; i++) pio_sm_put_blocking(pio, 0, result[i]);
-
-            firstInput = GetInputWithTimeout();
-            if (retries > 10) {
+        bool verified = false;
+        for (uint32_t attempt = 0; attempt < 8 && !verified; attempt += 1) {
+            uint32_t firstInput;
+            if (!SendEepromCommand(writeCommand, 10, &firstInput)) {
                 gEepromSize = 0;
                 return;
             }
-            retries += 1;
 
-        } while (firstInput == 0xFFFFFFFF);
-        // Read the incoming data from the cart.
-        uint8_t response[2];
-        response[0] = (uint8_t)firstInput;
-        if (response[0] != 0) {
-            sleep_ms(10);
+            // Rx=1 for a write command: a nonzero status means the cart is
+            // still busy finishing a previous write - back off and retry
+            // rather than assuming this one landed.
+            if ((uint8_t)firstInput != 0) {
+                sleep_ms(10);
+                continue;
+            }
+
+            sleep_us(200);
+
+            // Verify by reading the same block back.
+            if (!SendEepromCommand(readCommand, 2, &firstInput)) {
+                gEepromSize = 0;
+                return;
+            }
+            uint8_t readback[8];
+            readback[0] = (uint8_t)firstInput;
+            for (int i = 1; i < 8; i += 1) {
+                readback[i] = (uint8_t)pio_sm_get_blocking(pio, 0);
+            }
+
+            verified = (memcmp(readback, writeCommand + 2, 8) == 0);
+            if (!verified) {
+                sleep_ms(10);
+            }
         }
 
         sleep_us(200);
