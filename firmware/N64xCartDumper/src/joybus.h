@@ -13,57 +13,43 @@ void InitEepromClock(uint clockpin);
 void ReadEepromData(uint32_t offset, uint8_t *buffer);
 void WriteEepromData(uint32_t offset, uint8_t *buffer);
 
-// Full-chip RAM cache, populated once in cartio_init() (before tud_init()
-// starts the USB stack) so that live host reads of ROM.eep never need to
-// touch the SI_DAT/SI_CLK hardware again. Sized for the largest supported
-// EEPROM (16Kbit = 2048 bytes); only the first gEepromSize bytes are valid.
+// Full-chip RAM cache, populated once at boot so live reads never touch
+// hardware again. Only the first gEepromSize bytes are valid.
 #define EEPROM_CACHE_SIZE 0x800
 extern uint8_t gEepromCache[EEPROM_CACHE_SIZE];
 
-// Set whenever a host write lands in gEepromCache but hasn't been committed
-// to the physical EEPROM yet. Writes are staged here rather than written
-// through immediately - see FlushEepromCache().
+// Set when gEepromCache has unflushed writes - see FlushEepromCache().
 extern bool gEepromDirty;
 
-// Commits gEepromCache to the physical EEPROM if gEepromDirty is set, then
-// clears the flag.
+// Commits gEepromCache to the physical EEPROM if gEepromDirty is set.
 void FlushEepromCache(void);
 
-// Set when a host write targets an address at or beyond the actual detected
-// EEPROM size (gEepromSize) but still within the cache buffer - e.g. writing
-// a 2048-byte (16Kbit) save file onto a cart with only a 512-byte (4Kbit)
-// chip. Such writes are rejected (not staged) rather than silently accepted
-// and only partially flushed. Surfaced in CartTest.txt.
+// Set when a write targets past the detected EEPROM size (e.g. a 16Kbit
+// save on a 4Kbit chip) - rejected outright rather than partially flushed.
+// Surfaced in CartTest.txt.
 extern bool gEepromWriteSizeMismatch;
 
-// Timestamp (board_millis()) of the most recent staged write. Updated by the
-// write path in virtualdisk.c whenever gEepromDirty is set.
+// Timestamp (board_millis()) of the most recent staged write - see
+// virtualdisk.c.
 extern uint32_t gEepromLastWriteMs;
 
-// How long (ms) to wait after the last write, with no further writes, before
-// auto-flushing to the physical EEPROM.
+// Idle time (ms) after the last write before auto-flushing.
 #define EEPROM_FLUSH_IDLE_MS 1000
 
-// Call once per main loop iteration (see main.c). Flushes gEepromCache once
-// EEPROM_FLUSH_IDLE_MS has elapsed since the last write with no new write in
-// between - this keeps writes off the shared SI_DAT/SI_CLK hardware during
-// bursts of host I/O, without depending on the host ever sending an eject
-// command (many OSes, e.g. Windows' default "Quick Removal" policy, let
-// users unplug without ever doing so).
+// Flushes gEepromCache after EEPROM_FLUSH_IDLE_MS of inactivity - doesn't
+// rely on an eject command, since many OSes (e.g. Windows' Quick Removal)
+// let users unplug without ever sending one. Call once per main loop
+// iteration.
 void EepromIdleFlushTask(void);
 
 extern uint32_t gEepromSize;
 
-// Set when a previously-detected EEPROM (gEepromSize was already nonzero)
-// stops responding mid-operation. Distinct from "no EEPROM chip present"
-// (normal for most carts, never sets this) - sticky until reboot. Checked
-// by the status LED task in main.c to show a fast error blink.
+// Set when EEPROM stops responding after being detected present - distinct
+// from "no EEPROM chip" (normal, never sets this). Sticky until reboot.
 extern bool gEepromCommError;
 
-// Timestamp (board_millis()) of the most recent read/write activity - set
-// by host MSC reads/writes in virtualdisk.c (any file, not just EEPROM) and
-// by the EEPROM hardware flush in WriteEepromData, so the LED status task
-// can show live activity instead of just USB mount state. Initialized far
-// in the past so nothing looks "recently active" before the first real event.
+// Timestamp (board_millis()) of the most recent read/write activity, for
+// the status LED. Initialized far in the past so nothing looks active
+// before the first real event.
 extern volatile uint32_t gLastCartReadMs;
 extern volatile uint32_t gLastCartWriteMs;

@@ -118,10 +118,9 @@ uint32_t GetInputWithTimeout(void)
 pio_sm_config config;
 uint piooffset;
 
-// Sends a joybus command and returns the first response byte via *firstInputOut.
-// Leaves the PIO RX FIFO holding any remaining response bytes for the caller
-// to drain (pio_sm_get_blocking). Returns false if the cart never responded
-// (10 retries of the full command with no reply) - communication is lost.
+// Sends a command, returns the first response byte via *firstInputOut.
+// Leaves any remaining response bytes in the PIO RX FIFO for the caller to
+// drain. Returns false if the cart never responds.
 static bool __time_critical_func(SendEepromCommand)(const uint8_t* command, int len, uint32_t* firstInputOut)
 {
     uint32_t result[10];
@@ -171,9 +170,8 @@ void __time_critical_func(InitEeprom)(uint dataPin)
     pio_sm_init(pio, 0, piooffset, &config);
     pio_sm_set_enabled(pio, 0, true);
 
-    // Send the info command, retrying on timeout - this board's SI signaling
-    // has proven marginal (see also the CIC hello), so a single unanswered
-    // attempt right after reset shouldn't be taken to mean "no EEPROM".
+    // Retry on timeout - this board's SI signaling is marginal, so one
+    // unanswered attempt shouldn't mean "no EEPROM".
     uint8_t probeCommand[1] = {0x00};
     uint32_t buffer[3] = {0xFFFFFFFF, 0, 0};
     SendEepromCommand(probeCommand, 1, &buffer[0]);
@@ -244,9 +242,8 @@ void __time_critical_func(ReadEepromData)(uint32_t offset, uint8_t *buffer)
 
 void __time_critical_func(WriteEepromData)(uint32_t offset, uint8_t *buffer)
 {
-    // Write the eeprom, verifying (and retrying) each 8-byte block by reading
-    // it back before trusting it - a write ack alone doesn't guarantee the
-    // cart's internal write cycle actually finished before we moved on.
+    // Verify (and retry) each 8-byte block by reading it back - a write back
+    // alone doesn't guarantee the write cycle finished.
     for (uint32_t WriteIndex = 0; WriteIndex < 64; WriteIndex += 1) {
         uint8_t writeCommand[10] = {0x05, (uint8_t)(WriteIndex + offset)};
         for (uint i = 0; i < 8; i += 1) {
@@ -265,9 +262,7 @@ void __time_critical_func(WriteEepromData)(uint32_t offset, uint8_t *buffer)
                 return;
             }
 
-            // Rx=1 for a write command: a nonzero status means the cart is
-            // still busy finishing a previous write - back off and retry
-            // rather than assuming this one landed.
+            // Nonzero status: cart still busy from a previous write.
             if ((uint8_t)firstInput != 0) {
                 sleep_ms(10);
                 continue;
