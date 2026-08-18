@@ -45,7 +45,7 @@ Current hardware files:
 On VERSION 1.1 boards, the dedicated EEPROM pins are not actually routed to the RP2040 (dead-end nets) ((as far as Claude Code can tell at least)). To get working EEPROM saves on these boards, two jumper wires need to be soldered onto the cartridge slot connector, bridging the EEPROM lines onto pins that are already routed (shared with the CIC lines), and the firmware needs the accompanying EEPROM/CIC pin-sharing changes to go with it.
 
 <p align="center">
-  <img src="n64_jumper_diagram.svg" alt="N64xCart Dumper VERSION 1.1 jumper wire diagram" width="900">
+  <img src="extras/n64_jumper_diagram.svg" alt="N64xCart Dumper VERSION 1.1 jumper wire diagram" width="900">
 </p>
 
 Jumper wires needed:
@@ -65,8 +65,8 @@ Jumper wires needed:
 ### Expected results
 
 <p align="center">
-  <img src="jumpers.jpg" alt="Jumper wires soldered onto a REV 1.1 board" width="400">
-  <img src="eeprom_output.png" alt="CartTest.txt showing EEPROM 4K OK after the jumper mod" width="400">
+  <img src="extras/jumpers.jpg" alt="Jumper wires soldered onto a REV 1.1 board" width="400">
+  <img src="extras/eeprom_output.png" alt="CartTest.txt showing EEPROM 4K OK after the jumper mod" width="400">
 </p>
 
 EEPROM reads back `##K OK!` after the jumpers are installed and this firmware is flashed.
