@@ -1,3 +1,7 @@
+# Archival Note:
+I created this fork to share a workaround for the [eeprom bug](https://github.com/Auroxin/N64xCart-Dumper/issues/1) on the Rev_1.1 hardware. This is fixed in the current upstream repo, so I'm archiving this fork, but if you do have the Rev_1.1 board you can still find the release [here](https://github.com/selunders/N64xCart-Dumper/releases/tag/REV_1.1_eeprom-read-write_workaround), and the soldering instructions further down in this readme.
+
+
 # N64xCart Dumper
 
 N64xCart Dumper is an open hardware / firmware project for dumping Nintendo 64 cartridges as a USB mass storage device. It is based on the excellent DreamDumper64 project and the `DrmDmp64_mass` firmware, with changes for the N64xCart Dumper hardware.
